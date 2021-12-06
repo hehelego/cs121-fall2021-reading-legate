@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{algorithmicx}
+\usepackage[a4paper, total={170mm,257mm}, left=20mm, top=20mm]{geometry}
+
+% \usepackage[margin=0.3cm]{geometry}
+
+\usepackage{biblatex}
+\addbibresource{ref.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\newenvironment{newSec}[1]{
+	\section{#1}
+	\lhead{#1}
+}{ \newpage }
+\newenvironment{newSubsec}[1]{
+	\subsection{#1}
+	\rhead{#1}
+}{ \newpage }
+\lfoot{CS121 Reading Project}
+\cfoot{Review on Accelerated Numpy}
+\rfoot{Page \thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\setlength{\headsep}{10pt}
+
+
+
+\begin{document}
+\title{Accelerating {Numpy}\cite{numpy} for Data Science: A Summary on Legate}
+\author{Cheng Peng\footnote{2020533068\quad \href{mailto:pengcheng2@shanghaitech.edu.cn}{pengcheng2@shanghaitech.edu.cn}}}
+\maketitle
+\tableofcontents
+\newpage
+
+\begin{newSec}{Abstract}
+	numpy\cite{numpy}
+	cupy\cite{cupy}
+\end{newSec}
+
+\begin{newSec}{Background}
+	numpy\cite{numpy}
+	cupy\cite{cupy}
+\end{newSec}
+
+\begin{newSec}{The Legate Numpy System}
+	{legate numpy}\cite{legate}
+	\begin{newSubsec}{overview}
+	\end{newSubsec}
+
+	\begin{newSubsec}{the legion programming model}
+	\end{newSubsec}
+
+	\begin{newSubsec}{benchmarks}
+	\end{newSubsec}
+\end{newSec}
+
+\begin{newSec}{Related Works}
+	there is a parallelly developing project called dask\cite{dask}, which focus more on distributed computing and is optimized for distributed memory model.
+\end{newSec}
+
+
+\newpage
+\appendix
+\printbibliography
+
+\end{document}
