@@ -1,0 +1,20 @@
+\begin{newSec}{Sample code}
+	\begin{newSubsec}{NumPy}
+		It is convenient to express matrix operations in NumPy API.
+		Here we illustrate how to implement Jacobi iteration with NumPy.
+		\inputminted{python}{src/numpy.py}
+	\end{newSubsec}
+	\begin{newSubsec}{Theano/Aesara}
+		Here we demonstrate how to implement \href{https://aesara.readthedocs.io/en/latest/tutorial/examples.html#a-real-example-logistic-regression}{logistic regression} in aesara.
+		\inputminted{python}{src/theano.py}
+	\end{newSubsec}
+	\begin{newSubsec}{Numba}
+		The following code gives a simple example on numba's JIT decorator.
+		\inputminted{python}{src/numba.py}
+	\end{newSubsec}
+	\begin{newSubsec}{CuPy}
+		With CuPy, one can speedup common scientific computation task with NVIDIA CUDA toolkit.
+		We demonstrate how to use cuFFT.
+		\inputminted{python}{src/cupy.py}
+	\end{newSubsec}
+\end{newSec}
