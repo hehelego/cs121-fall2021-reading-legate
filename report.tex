@@ -1,12 +1,23 @@
 \documentclass{article}
-\usepackage{hyperref}
+\usepackage{indentfirst}
 \usepackage{graphicx}
 \usepackage{algorithmicx}
+\usepackage[outputdir=tex-output, cachedir=tex-output]{minted}
 \usepackage[a4paper, total={170mm,257mm}, left=20mm, top=20mm]{geometry}
 
-% \usepackage[margin=0.3cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+}
+\urlstyle{same}
 
-\usepackage{biblatex}
+
+\usepackage[backend=biber]{biblatex}
 \addbibresource{ref.bib}
 
 \usepackage{fancyhdr}
@@ -16,12 +27,15 @@
 	\section{#1}
 	\lhead{#1}
 }{ \newpage }
+\newenvironment{newSecNoNP}[1]{
+	\section{#1}
+	\lhead{#1}
+}{}
 \newenvironment{newSubsec}[1]{
 	\subsection{#1}
-	\rhead{#1}
-}{ \newpage }
+}{}
 \lfoot{CS121 Reading Project}
-\cfoot{Review on Accelerated Numpy}
+\cfoot{Review on Accelerated NumPy}
 \rfoot{Page \thepage}
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{1pt}
@@ -30,23 +44,29 @@
 
 
 \begin{document}
-\title{Accelerating {Numpy}\cite{numpy} for Data Science: A Summary on Legate}
+\title{Accelerating {NumPy}\cite{numpy} for Data Science: A Summary on Legate}
 \author{Cheng Peng\footnote{2020533068\quad \href{mailto:pengcheng2@shanghaitech.edu.cn}{pengcheng2@shanghaitech.edu.cn}}}
 \maketitle
 \tableofcontents
 \newpage
 
-\begin{newSec}{Abstract}
-	numpy\cite{numpy}
-	cupy\cite{cupy}
-\end{newSec}
+\begin{newSecNoNP}{Abstract}
+	Python is a widely used general programming language that is known for the simple and clear syntax.
+	With the support of huge standard library and third-part packages, a enormous python eco-system has formed in the past two decade.\par
+	It is popular in the filed of scientific computation and data science, however python is not designed for high performance computing.
+	The object memory model and the interpreter design made it hard for python program to be fast and scalable.
+	To overcome this barriers, plenty of research projects have arised.
+	Some tries to address this issues by providing alternative runtime for python,
+	while others re-implement certain python libraries with high performance code and link the external code with FFI.\par
+	In this paper review project, we will dive into legate numpy, a python library aims at accelerating python with distributed GPU cluster.
+\end{newSecNoNP}
 
 \begin{newSec}{Background}
 	numpy\cite{numpy}
 	cupy\cite{cupy}
 \end{newSec}
 
-\begin{newSec}{The Legate Numpy System}
+\begin{newSec}{The Legate NumPy System}
 	{legate numpy}\cite{legate}
 	\begin{newSubsec}{overview}
 	\end{newSubsec}
@@ -54,17 +74,87 @@
 	\begin{newSubsec}{the legion programming model}
 	\end{newSubsec}
 
+	\begin{newSubsec}{the data model}
+	\end{newSubsec}
+	\begin{newSubsec}{the task model}
+	\end{newSubsec}
+	\begin{newSubsec}{control replication}
+	\end{newSubsec}
+	\begin{newSubsec}{heuristical optimizations}
+	\end{newSubsec}
+
 	\begin{newSubsec}{benchmarks}
 	\end{newSubsec}
 \end{newSec}
 
 \begin{newSec}{Related Works}
-	there is a parallelly developing project called dask\cite{dask}, which focus more on distributed computing and is optimized for distributed memory model.
+	As we have mentioned in the introductory section, people have been trying to accelerate python ever since the rise of data science.
+	In this section, we are to cover a few more python libraries/frameworks/runtimes/compilers for speeding up large scale data science applications.\par
+	Only general purpose open source project are covered.
+	In fact, a variety of domain-specified numpy implementations do exists and a considerable number of enterprises have developed their own closed-source replacement of numpy.
+	\begin{newSubsec}{Theano / Aesara}
+		Aiming at accelerating mathematical expressions, Theano\cite{theano}, consisting of a set of numpy-like API and a compiler.
+		Before the python code is executed, Theano compiler transform it into optimized high performance C++ code and link it as a dynamically loaded python modules.\par
+		Theano is the pioneer of differentiable programming paradigm, the auto symbolic differentiation features
+		allow programmers to implement numerical optimization algorithm such as the gradient descent without manually evaluating the derivatives, which is painful and error-prone.
+		This key feature not only alleviates manual symbolic calculation, but also opens a door for advanced code generation.
+		Having full access to the computational graph, Theano applies local graph transformations to eliminate unnecessary, slow or numerically unstable expression patterns.\par
+		Theano is orginally a research project from Google MILA groups, however MILA stopped the development and maintance in 2017.
+		It is being continued as aesara, a community fork of theano.
+	\end{newSubsec}
+
+	\begin{newSubsec}{Numba}
+		Numba is similar to Theano, both libraries try to compile python code into high performance. When comparing them, Numba is more powerful and flexible.\par
+		To overcome the performance degrade of python interpreter and take the advantage of parallel execution,
+		the only modification needed is simply marking functions with \mintinline{python}{@jit,@cuda.jit,@cfunc} decorator.
+		The code then get transformed into optimized high performance code and can even utilize common hardware accelerators.\par
+		Numba implement a JIT (just in time) compiler to transform normal python code into LLVM IR.
+		They do optimization on the LLVM IR level and generate machine code from it.
+		The benefit of using LLVM IR is that Numba can support for targeting different hardwares such as multi-core CPUs, GPGPUs and Google TPUs.
+	\end{newSubsec}
+
+
+	\begin{newSubsec}{CuPy: array programming on a single NVIDIA GPU}
+		Prior to the birth of legate, the researchers at NVIDIA developed a drop-in replacement for numpy called CuPy\cite{cupy}.
+		It is highly compatible with the N-dimensional array API provided by NumPy.
+		Typically, to turn a CPU code into CUDA program can be achieve by replacing \mintinline{python}{import numpy as np} with \mintinline{python}{import cupy as np}.\par
+		CuPy does not simple move the data onto GPU main memory and implement array operations with CUDA kernels.
+		It is linked with NVIDIA's CUDA toolkit. cuBLAS, cuSOLVE, cuRAND, cuFFT are integrated into CuPy.
+		Cupy also include support low-level CUDA codes. User-defined CUDA kernels written in C++ are wrapped and loaded readily.
+	\end{newSubsec}
+
+	\begin{newSubsec}{Dask}
+		The previous three libraries focus on single node performance boost,
+		while Dask\cite{dask} is targeted fully utilizing the power of multi-node cluster.
+		Dask is a task-based runtime system for parallel and distributed computation.\par
+		\mintinline{python}{dask.array}, \mintinline{python}{dask.bag} and \mintinline{python}{dask.dataframe} are the three main data structure provided,
+		programmer use the then to compose programs.
+		Dask analysis the program and divides the computation into tasks.
+		The tasks are organized in a DAG called dask graph. The edges and vertices represent dependencies and computation tasks respectively.
+		Dask explore the graph and schedule execution of tasks dynamically until completion.\par
+		Dask provides richer data structures than legate, however the performance is lower than legate.
+		In the legate paper, researchers at NVIDIA compared the performance and scalability of dask and legate.
+		They concluded that legate outperforms dask in the sense of absolute speedup and weak-scalability.
+	\end{newSubsec}
+
+	\begin{newSubsec}{Tensorflow, PyTorch and MXNet}
+		The last five years have witnessed the tide of deep learning.
+		As the typical size of neural networks grows, training and inference require more computation power and memory foodprint.\par
+		Tensorflow, PyTorch and MXNet are three popular deep learning frameworks, each has implemented tensor (which is a fancier name for ndarray) facilities on GPU.
+	\end{newSubsec}
 \end{newSec}
 
-
-\newpage
-\appendix
+\begin{newSecNoNP}{Conclusion}
+	In this paper review project, we give an anatomy of the legate system, a NVIDIA research project provides accelerated numpy-compatible N-dimensional array operations on distributed GPU cluster.\par
+	In the beginning we give a overview of the scientific python ecosystem, where numpy plays a central role.
+	We then explored the legion runtime upon which the legate is built.
+	Shortly after that, we presented a detailed explanation on how legate maps numpy data structures and computational task into legion data and tasks.\par
+	In the last part, we covered several related works.
+	We give a short summary on their mechanism and compared them with legate.
+\end{newSecNoNP}
 \printbibliography
+\appendix
+
+\input{appendix.tex}
 
 \end{document}
