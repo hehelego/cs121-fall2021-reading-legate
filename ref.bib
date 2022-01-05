@@ -1,5 +1,5 @@
-@ARTICLE{numpy,
-  author  = {Harris, Charles R. and Millman, K. Jarrod and
+@ARTICLE{NumPy,
+  author       = {Harris, Charles R. and Millman, K. Jarrod and
             van der Walt, Stéfan J and Gommers, Ralf and
             Virtanen, Pauli and Cournapeau, David and
             Wieser, Eric and Taylor, Julian and Berg, Sebastian and
@@ -11,62 +11,98 @@
             Sheppard, Kevin and Reddy, Tyler and Weckesser, Warren and
             Abbasi, Hameer and Gohlke, Christoph and
             Oliphant, Travis E.},
-  title   = {Array programming with {NumPy}},
-  journal = {Nature},
-  year    = {2020},
-  volume  = {585},
-  pages   = {357–362},
-  doi     = {10.1038/s41586-020-2649-2}
+  title        = {Array programming with {NumPy}},
+  journal      = {Nature},
+  year         = {2020},
+  volume       = {585},
+  pages        = {357–362},
+  doi          = {10.1038/s41586-020-2649-2}
 }
 
-@inproceedings{theano,
-  title={Theano: A CPU and GPU math compiler in Python},
-  author={Bergstra, James and Breuleux, Olivier and Bastien, Fr{\'e}d{\'e}ric and Lamblin, Pascal and Pascanu, Razvan and Desjardins, Guillaume and Turian, Joseph and Warde-Farley, David and Bengio, Yoshua},
-  booktitle={Proc. 9th python in science conf},
-  volume={1},
-  pages={3--10},
-  year={2010}
+@inproceedings{Theano,
+  title        = {Theano: A CPU and GPU math compiler in Python},
+  author       = {Bergstra, James and Breuleux, Olivier and Bastien, Fr{\'e}d{\'e}ric and Lamblin, Pascal and Pascanu, Razvan and Desjardins, Guillaume and Turian, Joseph and Warde-Farley, David and Bengio, Yoshua},
+  booktitle    = {Proc. 9th python in science conf},
+  volume       = {1},
+  pages        = {3--10},
+  year         = {2010},
+  doi          = {http://dx.doi.org/10.25080/Majora-92bf1922-003}
 }
 
-@inproceedings{numba,
-  title={Numba: A llvm-based python jit compiler},
-  author={Lam, Siu Kwan and Pitrou, Antoine and Seibert, Stanley},
-  booktitle={Proceedings of the Second Workshop on the LLVM Compiler Infrastructure in HPC},
-  pages={1--6},
-  year={2015}
+@inproceedings{Numba,
+  title        = {Numba: A llvm-based python jit compiler},
+  author       = {Lam, Siu Kwan and Pitrou, Antoine and Seibert, Stanley},
+  booktitle    = {Proceedings of the Second Workshop on the LLVM Compiler Infrastructure in HPC},
+  pages        = {1--6},
+  year         = {2015},
+  doi          = {https://doi.org/10.1145/2833157.2833162}
 }
-@InProceedings{dask,
-  author    = { Matthew Rocklin },
-  title     = { Dask: Parallel Computation with Blocked algorithms and Task Scheduling },
-  booktitle = { Proceedings of the 14th Python in Science Conference },
-  pages     = { 130 - 136 },
-  year      = { 2015 },
-  editor    = { Kathryn Huff and James Bergstra }
+@InProceedings{Dask,
+  author       = { Matthew Rocklin },
+  title        = { Dask: Parallel Computation with Blocked algorithms and Task Scheduling },
+  booktitle    = { Proceedings of the 14th Python in Science Conference },
+  pages        = { 130 - 136 },
+  year         = { 2015 },
+  editor       = { Kathryn Huff and James Bergstra },
+  doi          = {http://dx.doi.org/10.25080/Majora-7b98e3ed-013}
+}
+
+
+@inproceedings{CuPy,
+  author       = {Okuta, Ryosuke and Unno, Yuya and Nishino, Daisuke and Hido, Shohei and Loomis, Crissman},
+  title        = {CuPy: A NumPy-Compatible Library for NVIDIA GPU Calculations},
+  booktitle    = {Proceedings of Workshop on Machine Learning Systems (LearningSys) in The Thirty-first Annual Conference on Neural Information Processing Systems (NIPS)},
+  year         = {2017},
+  url          = {http://learningsys.org/nips17/assets/papers/paper_16.pdf}
+}
+
+@inproceedings{Legate,
+  author       = {Bauer, Michael and Garland, Michael},
+  title        = {Legate NumPy: Accelerated and Distributed Array Computing},
+  year         = {2019},
+  isbn         = {9781450362290},
+  publisher    = {Association for Computing Machinery},
+  address      = {New York, NY, USA},
+  doi          = {10.1145/3295500.3356175},
+  abstract     = {NumPy is a popular Python library used for performing array-based numerical computations. The canonical implementation of NumPy used by most programmers runs on a single CPU core and is parallelized to use multiple cores for some operations. This restriction to a single-node CPU-only execution limits both the size of data that can be handled and the potential speed of NumPy code. In this work we introduce Legate, a drop-in replacement for NumPy that requires only a single-line code change and can scale up to an arbitrary number of GPU accelerated nodes. Legate works by translating NumPy programs to the Legion programming model and then leverages the scalability of the Legion runtime system to distribute data and computations across an arbitrary sized machine. Compared to similar programs written in the distributed Dask array library in Python, Legate achieves speed-ups of up to 10X on 1280 CPUs and 100X on 256 GPUs.},
+  booktitle    = {Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis},
+  articleno    = {23},
+  numpages     = {23},
+  keywords     = {logical regions, HPC, legate, control replication, task-based runtimes, legion, NumPy, distributed execution, GPU, Python},
+  location     = {Denver, Colorado},
+  series       = {SC '19}
+}
+@inproceedings{Legion,
+  title        = {Legion: Expressing locality and independence with logical regions},
+  author       = {Bauer, Michael and Treichler, Sean and Slaughter, Elliott and Aiken, Alex},
+  booktitle    = {SC'12: Proceedings of the International Conference on High Performance Computing, Networking, Storage and Analysis},
+  pages        = {1--11},
+  year         = {2012},
+  organization = {IEEE},
+  doi          = {http://dx.doi.org/10.1109/SC.2012.71}
 }
 
 
-@inproceedings{cupy,
-  author       = "Okuta, Ryosuke and Unno, Yuya and Nishino, Daisuke and Hido, Shohei and Loomis, Crissman",
-  title        = "CuPy: A NumPy-Compatible Library for NVIDIA GPU Calculations",
-  booktitle    = "Proceedings of Workshop on Machine Learning Systems (LearningSys) in The Thirty-first Annual Conference on Neural Information Processing Systems (NIPS)",
-  year         = "2017",
-  url          = "http://learningsys.org/nips17/assets/papers/paper_16.pdf"
-}
 
-@inproceedings{legate,
-  author = {Bauer, Michael and Garland, Michael},
-  title = {Legate NumPy: Accelerated and Distributed Array Computing},
-  year = {2019},
-  isbn = {9781450362290},
-  publisher = {Association for Computing Machinery},
-  address = {New York, NY, USA},
-  url = {https://doi.org/10.1145/3295500.3356175},
-  doi = {10.1145/3295500.3356175},
-  abstract = {NumPy is a popular Python library used for performing array-based numerical computations. The canonical implementation of NumPy used by most programmers runs on a single CPU core and is parallelized to use multiple cores for some operations. This restriction to a single-node CPU-only execution limits both the size of data that can be handled and the potential speed of NumPy code. In this work we introduce Legate, a drop-in replacement for NumPy that requires only a single-line code change and can scale up to an arbitrary number of GPU accelerated nodes. Legate works by translating NumPy programs to the Legion programming model and then leverages the scalability of the Legion runtime system to distribute data and computations across an arbitrary sized machine. Compared to similar programs written in the distributed Dask array library in Python, Legate achieves speed-ups of up to 10X on 1280 CPUs and 100X on 256 GPUs.},
-  booktitle = {Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis},
-  articleno = {23},
-  numpages = {23},
-  keywords = {logical regions, HPC, legate, control replication, task-based runtimes, legion, NumPy, distributed execution, GPU, Python},
-  location = {Denver, Colorado},
-  series = {SC '19}
+
+
+@article{gpt3,
+  title={GPT-3: Its nature, scope, limits, and consequences},
+  author={Floridi, Luciano and Chiriatti, Massimo},
+  journal={Minds and Machines},
+  volume={30},
+  number={4},
+  pages={681--694},
+  year={2020},
+  publisher={Springer}
+}
+@article{gravwave,
+  title={Distinguishing spin-aligned and isotropic black hole populations with gravitational waves},
+  author={Farr, Will M and Stevenson, Simon and Miller, M Coleman and Mandel, Ilya and Farr, Ben and Vecchio, Alberto},
+  journal={Nature},
+  volume={548},
+  number={7668},
+  pages={426--429},
+  year={2017},
+  publisher={Nature Publishing Group}
 }
